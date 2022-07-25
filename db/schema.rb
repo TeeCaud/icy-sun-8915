@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_212016) do
+ActiveRecord::Schema.define(version: 2022_07_25_151524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,5 +31,19 @@ ActiveRecord::Schema.define(version: 2022_07_21_212016) do
     t.index ["department_id"], name: "index_employees_on_department_id"
   end
 
+  create_table "ticket_employees", force: :cascade do |t|
+    t.bigint "ticket_id"
+    t.bigint "employee_id"
+    t.index ["employee_id"], name: "index_ticket_employees_on_employee_id"
+    t.index ["ticket_id"], name: "index_ticket_employees_on_ticket_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "subject"
+    t.integer "age"
+  end
+
   add_foreign_key "employees", "departments"
+  add_foreign_key "ticket_employees", "employees"
+  add_foreign_key "ticket_employees", "tickets"
 end

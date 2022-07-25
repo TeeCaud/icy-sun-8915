@@ -1,0 +1,22 @@
+<h1>Employee Show Page</h1>
+<%= @employee.name %>
+<br>
+<%= @employee.department.name %>
+
+<% @employee.sort_tickets.each_with_index do |ticket, index| %>
+<div id="ticket-<%= index %>">
+  <br>
+  <%= ticket.subject %>
+</div>
+<%= "Oldest Ticket: #{@employee.oldest_ticket}" %>
+<% end %>
+
+<h1>Add Ticket</h1>
+
+<%= form_with url: "/employees/tickets", method: :post, local:true do |f| %>
+  <%= f.label :subject %>
+  <%= f.text_field :subject %>
+  <%= f.label :age %>
+  <%= f.text_field :age %>
+  <%= f.submit %>
+<% end %>
